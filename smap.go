@@ -37,3 +37,10 @@ func (m *Smap[K, V]) Len() (n int) {
 	}
 	return
 }
+
+// Range calls f sequentially for each key and value present in the map.
+func (m *Smap[K, V]) Range(f func(key K, value V) bool) {
+	m.Map.Range(func(key, value any) bool {
+		return f(key.(K), value.(V))
+	})
+}
